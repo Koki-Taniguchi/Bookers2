@@ -1,0 +1,31 @@
+<%= h(flash[:notice]) %>
+<div class="container">
+  <div class="row">
+
+    <%= render 'books/form', user: @user %>
+
+    <section class="col-lg-9">
+      <h1>Users</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= attachment_image_tag user, :profile_image, :fill, 40, 40, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", :size =>'40x40' %></td>
+              <td><%= user.name %></td>
+              <td><%= link_to "Show",  user_path(user), class: "user_#{user.id}" %></td>
+            </tr>
+          <% end %>
+          <%= paginate @users, class: "paginate" %>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>

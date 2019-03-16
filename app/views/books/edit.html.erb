@@ -1,0 +1,28 @@
+<section class="col-lg-6 col-lg-offset-3">
+<%= h(flash[:notice]) %>
+<h1>Editing Book</h1>
+
+<%= form_for(@book) do |f| %>
+
+  <% if @book.errors.any? %>
+    <%= @book.errors.count %>件のエラーが発生しました
+    <% @book.errors.full_messages.each do |message| %>
+      <%= message %>
+    <% end %>
+  <% end %>
+
+  <p style="margin-top: 10px;">Title</p>
+  <%= f.text_field :title, class: "col-lg-12 book_title" %>
+
+  <p style="margin-top: 50px;">Opinion</p>
+  <%= f.text_area :body, class: "col-lg-12 book_body" %><br>
+
+  <div style="margin-top: 50px;">
+    <%= f.submit "Update Book", class: "col-lg-12 btn btn-primary" %>
+  </div>
+
+<% end %>
+
+<p style="margin-top: 100px"><%= link_to "Show", book_path(@book), class: "book_#{params[:id]}" %>|<%= link_to "Back", books_path, class: "books back" %></p>
+
+</section>

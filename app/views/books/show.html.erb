@@ -1,0 +1,27 @@
+<%= h(flash[:notice]) %>
+<div class="container">
+  <div class="row">
+
+    <%= render 'books/form', user: current_user %>
+
+    <section class="col-lg-9">
+      <h2>Book deteil</h2>
+      <table class="table" style="font-size: 13px;">
+        <tbody>
+            <tr>
+              <td style="height: 80px;"><%= attachment_image_tag @user, :profile_image, :fill, 50, 50, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", :size =>'40x40' %><br><br><br>
+                <%= link_to @user.name, user_path(@user), class: "user_#{@user.id}" %>
+              </td>
+              <td><%= link_to @books.title, book_path(@books), class: "book_#{@books.id}" %></td>
+              <td><%= @books.body %></td>
+              <% if current_user == @user %>
+                <td><%= link_to "Edit", edit_book_path(@books), class: "btn-sm btn-success edit_book_#{@books.id}" %></td>
+                <td><%= link_to "Destroy", book_path(@books), method: :delete, class: "btn-sm btn-danger destroy_book_#{@books.id}" %></td>
+              <% end %>
+            </tr>
+          
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>

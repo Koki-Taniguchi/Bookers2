@@ -1,0 +1,27 @@
+<%= h(flash[:notice]) %>
+<section class="col-lg-6 col-lg-offset-3">
+<h1>User info</h1>
+<%= form_for(@user) do |f| %>
+
+  <% if @user.errors.any? %>
+    <%= @user.errors.count %>件のエラーが発生しました
+    <% @user.errors.full_messages.each do |message| %>
+      <%= message %>
+    <% end %>
+  <% end %>
+
+  <p>Name</p>
+  <%= f.text_field :name, class: "col-lg-12 name" %>
+
+  <p style="margin-top: 50px;">Image</p>
+  <%= f.attachment_field :profile_image, class: "user_image" %>
+
+  <p style="margin-top: 15px;">Introduction</p>
+  <%= f.text_area :introduction, class: "col-lg-12 introduction" %>
+
+  <div style="margin-top: 80px;">
+    <%= f.submit "Update User", class: "btn btn-primary col-lg-12" %>
+  </div>
+
+<% end %>
+</section>
