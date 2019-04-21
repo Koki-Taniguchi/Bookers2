@@ -18,6 +18,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @books = @user.books.page(params[:page]).reverse_order
     @book = Book.new
+    @followers = Follow.where(follow_id: @user.id).page(params[:page]).reverse_order
+    @follows = @user.follows.page(params[:page]).reverse_order
   end
 
   def edit

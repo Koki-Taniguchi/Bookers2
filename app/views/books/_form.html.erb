@@ -10,9 +10,31 @@
       <th>introduction</th>
       <td><%= user.introduction %></td>
     </tr>
-  </table>
   <% if current_user == user %>
+      <tr>
+        <th>follow</th>
+        <td>follows:<%= user.follows.count %> followers:<%= Follow.where(follow_id: user.id).count %></td>
+      </tr>
+    </table>
     <%= link_to '', edit_user_path(user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
+  <% else %>
+    <tr>
+      <th>follow</th>
+      <% if current_user.followed_by?(user) %> <!-- follow処理 -->
+        <td>
+          <%= link_to user_follows_path(user), method: :delete  do %>
+          <i class="fa fa-heart" aria-hidden="ture" style="color: red;"></i>
+          <% end %> follows:<%= user.follows.count %> followers:<%= Follow.where(follow_id: user.id).count %>
+        </td>
+      <% else %>
+        <td>
+          <%= link_to user_follows_path(user), method: :post  do %>
+          <i class="far fa-heart" aria-hidden="ture" style="color: red;"></i>
+          <% end %>  follows:<%= user.follows.count %> followers:<%= Follow.where(follow_id: user.id).count %>
+        </td>
+      <% end %>
+      </tr>
+    </table>
   <% end %>
 
   <h2 style="margin-top: 80px">New book</h2>

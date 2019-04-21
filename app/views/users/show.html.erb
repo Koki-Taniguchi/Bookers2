@@ -26,6 +26,47 @@
           <%= paginate @books, class: "paginate" %>
         </tbody>
       </table>
+
+      <h2>followers</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @followers.each do |follower| %>
+            <tr>
+              <td><%= attachment_image_tag follower.user, :profile_image, :fill, 40, 40, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", :size =>'40x40' %></td>
+              <td><%= link_to follower.user.name, user_path(follower.user) %></td>
+            </tr>
+          <% end %>
+          <%= paginate @followers, class: "paginate" %>
+        </tbody>
+      </table>
+
+      <h2>follows</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @follows.each do |follow| %>
+            <% user = User.find(follow.follow_id) %>
+            <tr>
+              <td><%= attachment_image_tag user, :profile_image, :fill, 40, 40, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg", :size =>'40x40' %></td>
+              <td><%= link_to user.name, user_path(user) %></td>
+            </tr>
+          <% end %>
+          <%= paginate @follows, class: "paginate" %>
+        </tbody>
+      </table>
     </section>
   </div>
 </div>

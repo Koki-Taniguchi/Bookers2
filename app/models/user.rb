@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
   has_many :favorites
   has_many :comments
+  has_many :follows
   attachment :profile_image
 
   validates :name, presence: true, length: { in: 2..20 }
@@ -18,5 +19,9 @@ class User < ApplicationRecord
 
   def email_changed?
     false
+  end
+
+  def followed_by?(user)
+    follows.where(follow_id: user.id).exists?
   end
 end
