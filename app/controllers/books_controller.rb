@@ -15,7 +15,8 @@ class BooksController < ApplicationController
   end
 
   def create
-    book = Book.new(book_params)
+    book = Book.new
+    book_get_params(book)
     book.user_id = current_user.id
     if book.save
       redirect_to book_path(book), notice: "Book was successfully created."
@@ -47,8 +48,13 @@ class BooksController < ApplicationController
 
   private
 
+    def book_get_params(book)
+      book.title = params[:book][:title]
+      book.body = params[:book][:title]
+    end
+
     def book_params
-      params.require(:book).permit(:title, :body)
+      params.require(:book).permit(:book, :title)
     end
 
     def correct_user
